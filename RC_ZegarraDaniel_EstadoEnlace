@@ -1,0 +1,116 @@
+//Alumno: Daniel Zegarra Zegarra
+//Codigo: 20183471
+//Seccion: 602
+
+package estadoenlace;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class EstadoEnlace {
+
+    int minDistance(int dista[], Boolean procesado[], int b) {
+        // Inicializar el valor principal
+        int minimo = Integer.MAX_VALUE, minimo_index = -1;
+
+        for (int x = 0; x < b; x++) {
+            if (procesado[x] == false && dista[x] <= minimo) {
+                minimo = dista[x];
+                minimo_index = x;
+            }
+        }
+
+        return minimo_index;
+    }
+
+    //Funcion Imprimir
+    void printSolution(int distb[], int b) {
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Distancias mínimas desde origen");
+        System.out.println("--------------------------------");
+        System.out.println("Vértice \t\t Distancia desde origen");
+        
+        for (int i = 0; i < b; i++) 
+        {
+            System.out.println((i + 1) + " \t\t\t " + distb[i]);
+        }
+    }
+
+    // Función para ejecutar Dijkstra 
+    void dijkstra(int grafo[][], int origen) {
+        int b = grafo[0].length;
+        int distc[] = new int[b];
+        
+        Boolean procesado[] = new Boolean[b];
+        // Iniciar las ditancias como infinito y  falso
+        for (int i = 0; i < b; i++) {
+            distc[i] = Integer. MAX_VALUE;
+            procesado[i] = false;
+        }
+        // Distancia del vertice origen siempre 0
+        distc[origen] = 0;
+
+        // Encontrar el camino mas rapido para todos los vertices
+        for (int count = 0; count < b; count++) 
+        {
+            int u = minDistance(distc, procesado, b);
+            procesado[u] = true;
+        
+            for (int v = 0; v < b; v++)
+            {
+                if (!procesado[v] && grafo[u][v] != 0 && distc[u] != Integer.MAX_VALUE && distc[u] + grafo[u][v] < distc[v]) 
+                {
+                    distc[v] = distc[u] + grafo[u][v];
+                }
+            }
+        }
+        printSolution(distc, b);
+    }
+    
+   public static void main(String[] args) throws IOException {
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        
+        //Pide vertices
+        System.out.println("Canditad de Vertices:");
+        
+        String sVertices = in.readLine();
+
+        int cVertices = Integer.parseInt(sVertices);
+
+        int grafo[][] = new int[cVertices][cVertices];
+
+        for (int i = 0; i < grafo.length; i++) {
+            for (int j = 0; j < grafo[i].length; j++) {
+                int peso = 0;
+                System.out.println("Peso de conexión entre los nodos " + i + " y " + j);
+                peso = Integer.parseInt(in.readLine());
+                if (i == j) {
+                    peso = 0;
+                }
+                grafo[i][j] = peso;
+            }
+        }
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Matriz de adyacencia");
+        System.out.println("--------------------");
+
+        //Imprimir la matriz de adyacencia
+        for (int x = 0; x < grafo.length; x++) {
+            for (int y = 0; y < grafo[x].length; y++) 
+            {
+                System.out.print("|" + grafo[x][y] + "|");
+            }
+            System.out.println("");
+        }
+        //Ejecutar dijkstra para la matriz ingresada
+        EstadoEnlace t = new EstadoEnlace();
+        t.dijkstra(grafo, 0);
+    }
+    
+}
