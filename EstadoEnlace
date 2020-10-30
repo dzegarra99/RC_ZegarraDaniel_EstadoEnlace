@@ -2,6 +2,21 @@
 //Codigo: 20183471
 //Seccion: 602
 
+//Instrucciones para la ejecución del código
+//Primera opción:
+//1. Descargar el archivo de extensión .java y guardarlo en la ubicación de preferencia
+//2. Abrir la consola de comenados e ingresar la ubicación de la carpeta donde se guardó el archivo. Ejemplo: C:\Users\"Nombre_de_Usuario"\Desktop
+//2.1 Ingresar el comando: javac AppEstadoEnlace.java --> Este comando es utilizado para compilar el codigo
+//2.2 Ingresar el comando: java AppEstadoEnlace.java -> Este comando es utilizado para ejecutar el codigo
+
+//Segunda opción: 
+//1. Abrir un bloc de notas y colocar el código sacado del repositorio
+//2. Guardar el documento como "NombreDeseado".java en la ubicación que se deseada.
+//3. Abrir la consola de comenados e ingresar la ubicación de la carpeta donde se guardó el archivo. Ejemplo: C:\Users\"Nombre_de_Usuario"\Desktop
+//3.1 Ingresar el comando: javac AppEstadoEnlace.java --> Este comando es utilizado para compilar el codigo
+//3.2 Ingresar el comando: java AppEstadoEnlace.java -> Este comando es utilizado para ejecutar el codigo
+
+//Es necesario tener instalada Java 8 o superior
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,9 +27,9 @@ public class EstadoEnlace {
     int minDistance(int dista[], Boolean procesado[], int b) {
         // Inicializar el valor principal
         int minimo = Integer.MAX_VALUE, minimo_index = -1;
-
         for (int x = 0; x < b; x++) {
-            if (procesado[x] == false && dista[x] <= minimo) {
+            if (procesado[x] == false && dista[x] <= minimo)
+            {
                 minimo = dista[x];
                 minimo_index = x;
             }
@@ -24,45 +39,47 @@ public class EstadoEnlace {
     }
 
     //Funcion Imprimir
-    void printSolution(int distb[], int b) {
+    void printSolution(int distb[], int b)
+    {
         System.out.println("");
         System.out.println("");
         System.out.println("");
         System.out.println("Distancias mínimas desde origen");
-        System.out.println("--------------------------------");
-        System.out.println("Vértice \t\t Distancia desde origen");
-        
+        System.out.println("---------------------------------------------------");
+        System.out.println("Vértice \t\t\t Distancia desde origen");
         for (int i = 0; i < b; i++) 
         {
-            System.out.println((i + 1) + " \t\t\t " + distb[i]);
+            System.out.println((i + 1) + " \t\t\t\t\t " + distb[i]);
         }
     }
 
     // Función para ejecutar Dijkstra 
-    void dijkstra(int grafo[][], int origen) {
-        int b = grafo[0].length;
+    void dijkstra(int grafo1[][], int origen) 
+    {
+        int b = grafo1[0].length;
         int distc[] = new int[b];
         
-        Boolean procesado[] = new Boolean[b];
+        Boolean procesado1[] = new Boolean[b];
         // Iniciar las ditancias como infinito y  falso
-        for (int i = 0; i < b; i++) {
+        for (int i = 0; i < b; i++) 
+        {
             distc[i] = Integer. MAX_VALUE;
-            procesado[i] = false;
+            procesado1[i] = false;
         }
         // Distancia del vertice origen siempre 0
         distc[origen] = 0;
 
         // Encontrar el camino mas rapido para todos los vertices
-        for (int count = 0; count < b; count++) 
+        for (int i = 0; i < b; i++) 
         {
-            int u = minDistance(distc, procesado, b);
-            procesado[u] = true;
+            int u = minDistance(distc, procesado1, b);
+            procesado1[u] = true;
         
             for (int v = 0; v < b; v++)
             {
-                if (!procesado[v] && grafo[u][v] != 0 && distc[u] != Integer.MAX_VALUE && distc[u] + grafo[u][v] < distc[v]) 
+                if (!procesado1[v] && grafo1[u][v] != 0 && distc[u] != Integer.MAX_VALUE && distc[u] + grafo1[u][v] < distc[v]) 
                 {
-                    distc[v] = distc[u] + grafo[u][v];
+                    distc[v] = distc[u] + grafo1[u][v];
                 }
             }
         }
@@ -76,21 +93,21 @@ public class EstadoEnlace {
         //Pide vertices
         System.out.println("Canditad de Vertices:");
         
-        String sVertices = in.readLine();
+        String AVertice = in.readLine();
 
-        int cVertices = Integer.parseInt(sVertices);
+        int BVertice = Integer.parseInt(AVertice);
 
-        int grafo[][] = new int[cVertices][cVertices];
+        int grafo[][] = new int[BVertice][BVertice];
 
-        for (int i = 0; i < grafo.length; i++) {
-            for (int j = 0; j < grafo[i].length; j++) {
+        for (int x = 0; x < grafo.length; x++) {
+            for (int j = 0; j < grafo[x].length; j++) {
                 int peso = 0;
-                System.out.println("Peso de conexión entre los nodos " + i + " y " + j);
+                System.out.println("Peso entre los nodos " + x + " y " + j);
                 peso = Integer.parseInt(in.readLine());
-                if (i == j) {
+                if (x == j) {
                     peso = 0;
                 }
-                grafo[i][j] = peso;
+                grafo[x][j] = peso;
             }
         }
         System.out.println("");
