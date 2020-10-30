@@ -2,7 +2,6 @@
 //Codigo: 20183471
 //Seccion: 602
 
-package estadoenlace;
 
 import java.io.BufferedReader;
 import java.io.IOException;
