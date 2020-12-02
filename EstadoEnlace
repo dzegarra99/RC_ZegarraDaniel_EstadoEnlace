@@ -21,10 +21,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class EstadoEnlace {
 
-    int minDistance(int dista[], Boolean procesado[], int b) {
+    int ShortestPath (int dista[], Boolean procesado[], int b) {
         // Inicializar el valor principal
         int minimo = Integer.MAX_VALUE, minimo_index = -1;
         for (int x = 0; x < b; x++) {
@@ -45,7 +47,7 @@ public class EstadoEnlace {
         System.out.println("");
         System.out.println("");
         System.out.println("Distancias mínimas desde origen");
-        System.out.println("---------------------------------------------------");
+        System.out.println("--------------------------------");
         System.out.println("Vértice \t\t\t Distancia desde origen");
         for (int i = 0; i < b; i++) 
         {
@@ -72,7 +74,7 @@ public class EstadoEnlace {
         // Encontrar el camino mas rapido para todos los vertices
         for (int i = 0; i < b; i++) 
         {
-            int u = minDistance(distc, procesado1, b);
+            int u = ShortestPath(distc, procesado1, b);
             procesado1[u] = true;
         
             for (int v = 0; v < b; v++)
@@ -86,47 +88,70 @@ public class EstadoEnlace {
         printSolution(distc, b);
     }
     
+    
    public static void main(String[] args) throws IOException {
+       
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        Scanner in = new Scanner(System.in);
         
+
         //Pide vertices
-        System.out.println("Canditad de Vertices:");
-        
-        String AVertice = in.readLine();
+        System.out.println("Ingrese Cantidad de Vertices: ");
 
-        int BVertice = Integer.parseInt(AVertice);
+        String V = in.next();
 
-        int grafo[][] = new int[BVertice][BVertice];
+        int V2 = Integer.parseInt(V);
 
-        for (int x = 0; x < grafo.length; x++) {
-            for (int j = 0; j < grafo[x].length; j++) {
-                int peso = 0;
+        int GRF[][] = new int[V2][V2];
+
+        for (int x = 0; x < GRF.length; x++) {
+            for (int j = 0; j < GRF[x].length; j++) {
+                int p = 0;
                 System.out.println("Peso entre los nodos " + x + " y " + j);
-                peso = Integer.parseInt(in.readLine());
+                p = Integer.parseInt(in.next());
                 if (x == j) {
-                    peso = 0;
+                    p = 0;
                 }
-                grafo[x][j] = peso;
+                GRF[x][j] = p;
             }
         }
-        System.out.println("");
+
         System.out.println("");
         System.out.println("");
         System.out.println("Matriz de adyacencia");
-        System.out.println("--------------------");
+        System.out.println("");        
+        System.out.println("");
 
         //Imprimir la matriz de adyacencia
-        for (int x = 0; x < grafo.length; x++) {
-            for (int y = 0; y < grafo[x].length; y++) 
+        for (int x = 0; x < GRF.length; x++) {
+            for (int y = 0; y < GRF[x].length; y++) 
             {
-                System.out.print("|" + grafo[x][y] + "|");
+            System.out.print("|" + GRF[x][y] + "|");
             }
             System.out.println("");
         }
+        
+        
+      
+        
+        //Función para calcular el tiempo de ejecución
+        long start = System.currentTimeMillis();
+        ArrayList a = new ArrayList();
+        
         //Ejecutar dijkstra para la matriz ingresada
         EstadoEnlace t = new EstadoEnlace();
-        t.dijkstra(grafo, 0);
-    }
-    
+        
+        for(int i = 1; i<=1000000; i++)
+        {
+            a.add(i);
+        }
+        t.dijkstra(GRF, 0);
+        long end = System.currentTimeMillis();
+        System.out.println("");        
+        System.out.println("");
+        System.out.println("Tiempo de ejecución del algoritmo");
+        System.out.println("----------------------------------");
+        System.out.println( end - start + "  " +  "Milisegundos"); 
+        }
+
 }
